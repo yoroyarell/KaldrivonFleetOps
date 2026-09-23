@@ -399,7 +399,7 @@ footer a{color:var(--muted)}
 }
 @media (max-width:860px){
   .shell{grid-template-columns:1fr}
-  .explain{position:fixed;top:0;right:0;bottom:0;height:auto;width:min(92vw,380px)!important;z-index:60;transform:translateX(0);transition:transform .25s ease;box-shadow:-12px 0 40px rgba(0,0,0,.5);padding-top:env(safe-area-inset-top,0px)}
+  .explain{position:fixed;top:0;right:0;bottom:0;align-self:stretch;height:100vh;height:100dvh;max-height:100dvh;width:min(92vw,380px)!important;z-index:60;transform:translateX(0);transition:transform .25s ease;box-shadow:-12px 0 40px rgba(0,0,0,.5);padding-top:env(safe-area-inset-top,0px)}
   .explain .ex-body{width:100%}
   .explain.collapsed{transform:translateX(105%)}
   .explain.collapsed .ex-body{display:flex}
