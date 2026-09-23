@@ -126,6 +126,17 @@ main{padding-block:26px 60px;padding-inline:28px;min-width:0}
 .tag{font-family:var(--mono);font-size:10.5px;padding:1px 6px;border-radius:4px;background:var(--surface-2);color:var(--muted);border:1px solid var(--border)}
 .synth{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--violet);border:1px dashed #43365e;padding:1px 6px;border-radius:4px}
 
+/* idea panel */
+.idea{border-color:var(--amber-dim)}
+.idea-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:24px;align-items:start}
+.idea-k{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:4px}
+.idea p{font-size:13.5px;color:#c4ccd5;max-width:62ch}
+.idea-map{table-layout:fixed}
+.idea-map td{font-size:13px}
+.idea-map th:first-child{width:44%}.idea-map th:nth-child(2){width:26px}
+.idea-map td:first-child{color:var(--muted)}
+.idea-map td.arr{color:var(--amber);width:20px;padding-inline:0;text-align:center}
+@media (max-width:1100px){.idea-grid{grid-template-columns:minmax(0,1fr)}}
 /* kpi strip */
 .kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
 .kpi{background:var(--surface);padding:14px 16px;display:flex;flex-direction:column;gap:3px;min-width:0}
@@ -479,10 +490,33 @@ footer a{color:var(--muted)}
   <div class="view-head">
     <div class="eyebrow">Enterprise mobility · autonomous device operations</div>
     <h1>Turn a business outcome into governed device operations</h1>
-    <p class="sub">A warehouse doesn't care that a scanner app restarted. It cares that scanning kept working through the shift. FleetOps is a control layer that sits beside your existing UEM and diagnostics platforms, takes an outcome like <em>“scanner availability ≥ 99% during staffed shifts”</em>, and works toward it through supported interfaces only — with every action checked, bounded, verified and auditable.</p>
+    <p class="sub">What happens if you take the automation model behind telecom's autonomous networks and apply it to enterprise device management? FleetOps is an add-on layer that sits beside an existing MDM/UEM platform. A warehouse doesn't care that a scanner app restarted; it cares that scanning kept working through the shift. So FleetOps takes an outcome like <em>“scanner availability ≥ 99% during staffed shifts”</em> and works toward it through the platform's supported interfaces only — with every action checked, bounded, verified and auditable.</p>
     <div class="row" style="margin-top:6px">
       <button class="btn primary" onclick="Tour.start()">▶ Take the 3-minute tour</button>
       <button class="btn cyan" onclick="go('loop')">Jump to a live incident →</button>
+    </div>
+  </div>
+
+  <div class="panel idea" id="ideaPanel">
+    <div class="panel-h"><h3>The idea behind it</h3><span class="tag">concepts borrowed, not a standards claim</span></div>
+    <div class="idea-grid">
+      <div class="stack" style="gap:12px">
+        <div><div class="idea-k">Where it sits</div><p>Beside the MDM/UEM platform a company already runs, not instead of it. The platform keeps doing what it does — enrolling devices, pushing profiles, sending commands. FleetOps adds the layer above: what outcome the business needs, whether it's being met, and which safe action to take next. It only acts through the platform's supported APIs.</p></div>
+        <div><div class="idea-k">Where the idea comes from</div><p>Telecom operators run networks with an SMO (Service Management and Orchestration) layer and follow TM Forum's intent-based, autonomous-network model: state the outcome, measure it continuously, let pre-approved automation close the loop, and earn autonomy step by step. Device fleets have the same shape of problem — thousands of endpoints, strict uptime needs, changes that can hurt people's work — but rarely get that treatment.</p></div>
+        <div><div class="idea-k">What this demo shows</div><p>That the pattern transfers. Everything here is synthetic, but each piece maps to an approach already used in network operations.</p></div>
+      </div>
+      <div class="tbl-wrap"><table class="idea-map">
+        <thead><tr><th>Telecom networks</th><th></th><th>FleetOps</th></tr></thead>
+        <tbody>
+          <tr><td>Intent-based operations <span class="faint">(TM Forum)</span></td><td class="arr">→</td><td>A business goal: scanners usable ≥ 99% of the shift</td></tr>
+          <tr><td>Service assurance</td><td class="arr">→</td><td>Availability measured in device-minutes, unknown counted</td></tr>
+          <tr><td>SMO / Non-RT RIC running rApps</td><td class="arr">→</td><td>The control layer running approved runbooks</td></tr>
+          <tr><td>Conflict management between rApps</td><td class="arr">→</td><td>Policy arbitration: security deadline vs. busy shift</td></tr>
+          <tr><td>Closed-loop automation</td><td class="arr">→</td><td>Detect → fix → verify, with human approval</td></tr>
+          <tr><td>Network digital twin</td><td class="arr">→</td><td>Fleet digital twin and rollout simulation</td></tr>
+          <tr><td>Southbound interfaces to network elements</td><td class="arr">→</td><td>Adapters to the UEM and diagnostics platforms</td></tr>
+          <tr><td>Autonomy levels L0–L5 <span class="faint">(TM Forum)</span></td><td class="arr">→</td><td>Autonomy earned per task and device group</td></tr>
+        </tbody></table></div>
     </div>
   </div>
 
@@ -2057,7 +2091,7 @@ $('#lvlRun').addEventListener('click', playLv);
 const EX = {
   overview: {
     title: 'What is this, in plain English?',
-    lede: 'FleetOps watches whether a company\'s work devices are actually letting people do their jobs, and fixes common problems safely — asking a person before it touches anything.',
+    lede: 'FleetOps is an add-on to a company\'s existing device management (MDM) system. It watches whether work devices are actually letting people do their jobs, and fixes common problems safely — asking a person before it touches anything. The way it does that is borrowed from how telecom operators automate their networks.',
     pic: 'The device management system is the <em>remote control</em>, the diagnostics tool is the <em>dashboard gauges</em>, and FleetOps is a careful co-pilot: it reads the gauges, knows where you\'re trying to get to, and only presses buttons on the remote once you say OK.',
     primer: ['A company with thousands of handheld scanners, tablets or phones can\'t set them up one by one. Each device is <b>enrolled</b> into a management system — called <b>MDM</b> (Mobile Device Management) or, more broadly today, <b>UEM</b> (Unified Endpoint Management).',
       'Once enrolled, IT can push settings (Wi-Fi, passwords, security rules — bundled as <b>profiles</b>), install or update apps, lock a device to a single app (<b>kiosk mode</b>), and send commands like “restart this app” or “reboot”.',
@@ -2065,6 +2099,14 @@ const EX = {
       'A <b>diagnostics platform</b> goes deeper: app crashes, battery health, Wi-Fi quality, slowdowns.',
       'The gap: those tools describe <em>devices</em>. They don\'t know that 12 scanners failing at 10 a.m. in the picking aisle means orders shipping late. FleetOps connects device facts to the business result.'],
     sections: [
+      { h: 'The idea behind it (panel at the top)', p: 'Why this exists: FleetOps is an add-on for an existing MDM/UEM platform that borrows how modern telecom networks are automated. The table on the right pairs each telecom idea with its FleetOps equivalent.', items: [
+        ['Add-on, not a replacement', 'The company\'s existing device management product keeps doing its job. FleetOps sits above it, decides what should happen, and asks the product to do it through its official interfaces.'],
+        ['SMO', 'Service Management and Orchestration — the software layer telecom operators use to monitor and automatically manage their mobile network.'],
+        ['Non-RT RIC and rApps', 'Part of that layer (“non-real-time RAN intelligent controller”) that runs small automation apps, called rApps, each handling one job such as fixing congestion.'],
+        ['Conflict management', 'When two automation apps want opposite changes, something has to decide. FleetOps does the same between security and operations rules.'],
+        ['TM Forum', 'An industry body that publishes the intent-based and autonomous-network model (goals stated as outcomes, levels L0–L5) this design follows.'],
+        ['Southbound interfaces', 'The connections from the management layer down to the equipment it controls. Here: the adapters to the device management products.'],
+        ['“Concepts borrowed, not a standards claim”', 'The ideas are adapted; the demo doesn\'t claim to implement any telecom standard.']] },
       { h: 'The bar across the top', items: [
         ['FleetOps logo', 'Click it any time to come back to this page.'],
         ['Synthetic data', 'A reminder that every number is made up and generated in your browser.'],
